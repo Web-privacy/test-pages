@@ -1,0 +1,71 @@
+<html>
+<head>
+  Navigator magic
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+  <table style="width:100%">
+<tr>
+  <th>Attribute</th>
+  <th>Value</th>
+</tr>
+<tr>
+  <td>User Agent</td>
+  <td><script>document.write(navigator.userAgent);</script></td>
+</tr>
+<tr>
+  <td>AppCode name</td>
+  <td><script>document.write(navigator.appCodeName);</script></td>
+</tr>
+<tr>
+  <td>Appname</td>
+  <td><script>document.write(navigator.appName);</script></td>
+</tr>
+<tr>
+  <td>App Version</td>
+  <td><script>document.write(navigator.appVersion);</script></td>
+</tr>
+<tr>
+  <td>Cookie enabled</td>
+  <td><script>document.write(navigator.cookieEnabled);</script></td>
+</tr>
+<tr>
+  <td>Do Not Track</td>
+  <td><script>document.write(navigator.doNotTrack);</script></td>
+</tr>
+<tr>
+  <td>Plugins</td>
+  <td><script>
+  var numPlugins = navigator.plugins.length;
+  for (var i = 0; i < numPlugins; i++){
+  var plugin = navigator.plugins[i];
+
+  if (plugin) {
+    document.write("<b>" + plugin.name + "</b><br />")
+    document.write(plugin.description);
+  }
+}
+  </script></td>
+</tr>
+<tr>
+  <td>Language</td>
+  <td><script>document.write(navigator.language);</script></td>
+</tr>
+</body>
+</html>
