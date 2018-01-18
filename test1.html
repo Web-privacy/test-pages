@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title>Canvas Fingerprinting</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="./client.min.js" type="text/ecmascript"></script>
+	<script src="main.js"></script>
+</head>
+	<script src="canvas.js"></script>
+<body>
+	<script>savefingerprint(0);</script>
+	<script src="md5.js"></script>
+	<div id="maindiv">
+        	<h3>Loading... Please wait...</h3>
+        </div>
+	<h3>Canvas Fingerprinting Hash : </h3><script>document.write(generateHash())</script>
+</body>
+</html>
