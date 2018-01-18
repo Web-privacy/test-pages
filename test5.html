@@ -1,0 +1,30 @@
+<html>
+<head>
+  <h1><center><u>Battery Status</u></center></h1>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+  <table style="width:100%">
+    <tr>
+      <td>Screen Resolution</td>
+      <td><script>document.write(screen.width + "X" +screen.availHeight + "X" + screen.width);</script></td>
+    </tr>
+  </table>
+</body>
+</html>
