@@ -1,48 +1,32 @@
+//get the IP addresses associated with an account
+function getIPs(callback){
+	var ip_dups = {};
 
-            //get the IP addresses associated with an account
-            function getIPs(callback){
-                var ip_dups = {};
+        //compatibility for firefox and chrome
+        var RTCPeerConnection = window.RTCPeerConnection
+            || window.mozRTCPeerConnection
+            || window.webkitRTCPeerConnection;
+        var useWebKit = !!window.webkitRTCPeerConnection;
 
-                //compatibility for firefox and chrome
-                var RTCPeerConnection = window.RTCPeerConnection
-                    || window.mozRTCPeerConnection
-                    || window.webkitRTCPeerConnection;
-                var useWebKit = !!window.webkitRTCPeerConnection;
+        //minimal requirements for data connection
+        var mediaConstraints = {
+        	optional: [{RtpDataChannels: true}]
+        };
 
-                //bypass naive webrtc blocking using an iframe
-                if(!RTCPeerConnection){
-                    //NOTE: you need to have an iframe in the page right above the script tag
-                    //
-                    //<iframe id="iframe" sandbox="allow-same-origin" style="display: none"></iframe>
-                    //<script>...getIPs called in here...
-                    //
-                    var win = iframe.contentWindow;
-                    RTCPeerConnection = win.RTCPeerConnection
-                        || win.mozRTCPeerConnection
-                        || win.webkitRTCPeerConnection;
-                    useWebKit = !!win.webkitRTCPeerConnection;
-                }
+        var servers = {iceServers: [{urls: "stun:stun.services.mozilla.com"}]};
 
-                //minimal requirements for data connection
-                var mediaConstraints = {
-                    optional: [{RtpDataChannels: true}]
-                };
+        //construct a new RTCPeerConnection
+        var pc = new RTCPeerConnection(servers, mediaConstraints);
 
-                var servers = {iceServers: [{urls: "stun:stun.services.mozilla.com"}]};
+        function handleCandidate(candidate){
+        	//match just the IP address
+                var ip_regex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/
+                var ip_addr = ip_regex.exec(candidate)[1];
 
-                //construct a new RTCPeerConnection
-                var pc = new RTCPeerConnection(servers, mediaConstraints);
-
-                function handleCandidate(candidate){
-                    //match just the IP address
-                    var ip_regex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/
-                    var ip_addr = ip_regex.exec(candidate)[1];
-
-                    //remove duplicates
-                    if(ip_dups[ip_addr] === undefined)
-                        callback(ip_addr);
-
-                    ip_dups[ip_addr] = true;
+                //remove duplicates
+                if(ip_dups[ip_addr] === undefined)
+                	callback(ip_addr);
+                        ip_dups[ip_addr] = true;
                 }
 
                 //listen for candidate events
@@ -74,11 +58,11 @@
                             handleCandidate(line);
                     });
                 }, 1000);
-            }
+	}
 
-            //insert IP addresses into the page
-            getIPs(function(ip){
-                var li = document.createElement("li");
+        //insert IP addresses into the page
+        getIPs(function(ip){
+        	var li = document.createElement("li");
                 li.textContent = ip;
 
                 //local IPs
@@ -92,4 +76,4 @@
                 //assume the rest are public IPs
                 else
                     document.getElementsByTagName("ul")[1].appendChild(li);
-            });
+        });
