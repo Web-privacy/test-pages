@@ -4,6 +4,23 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="./client.min.js" type="text/ecmascript"></script>
 	<script src="main.js"></script>
+	<style>
+	table {
+	    font-family: arial, sans-serif;
+	    border-collapse: collapse;
+	    width: 100%;
+	}
+
+	td, th {
+	    border: 1px solid #dddddd;
+	    text-align: left;
+	    padding: 8px;
+	}
+
+	tr:nth-child(even) {
+	    background-color: #dddddd;
+	}
+	</style>
 </head>
 	<script src="canvas.js"></script>
 <body>
@@ -13,7 +30,7 @@
         	<h3>Loading... Please wait...</h3>
         </div>
 	<h3>Canvas Fingerprinting Hash : </h3><script>document.write(generateHash())</script>
-	<table>
+	<table style="width:100%">
 	<tr>
 		<td>Screen Resolution</td>
 		<td><script>document.write(screen.width + "X" +screen.availHeight + "X" + screen.width);</script></td>
